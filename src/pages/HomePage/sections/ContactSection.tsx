@@ -21,7 +21,7 @@ export default function ContactSection() {
           className="mt-4 max-w-4xl text-4xl font-normal leading-tight text-foreground md:text-6xl"
           style={display}
         >
-          Let&apos;s build something precise together.
+          期待与您携手，共创精准
         </h2>
 
         <div className="mt-10 flex flex-col items-center gap-3">
