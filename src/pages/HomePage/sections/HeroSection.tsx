@@ -24,7 +24,8 @@ export default function HeroSection() {
           className="animate-fade-rise max-w-7xl text-5xl font-normal leading-[0.95] tracking-[-2.46px] text-foreground sm:text-7xl md:text-8xl"
           style={display}
         >
-          精准<em className="not-italic text-muted-foreground">，自静谧中升起。</em>
+          Where <em className="not-italic text-muted-foreground">precision</em> rises{' '}
+          <em className="not-italic text-muted-foreground">through the silence.</em>
         </h1>
 
         <p className="animate-fade-rise-delay mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
