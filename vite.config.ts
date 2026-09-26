@@ -10,6 +10,8 @@ import tailwindcss from '@tailwindcss/vite';
 //   MIAODA_RESOURCE_CDN_PREFIX  JS/CSS 静态资源 CDN 前缀
 const basePath = process.env.MIAODA_CLIENT_BASE_PATH || '/';
 const cdnPrefix = process.env.MIAODA_RESOURCE_CDN_PREFIX;
+// Vercel 等标准静态托管平台：走标准 Vite 产物（dist/），不执行妙搭产物拆分
+const isVercel = !!process.env.VERCEL;
 
 // 产物分层：vite 原生产物（dist/client，中间产物，整理后删除）→ 妙搭托管产物结构：
 //   dist/output/           index.html + public 同源资源 + routes.json（走应用权限校验）
@@ -20,6 +22,8 @@ function miaodaOutputPlugin(): Plugin {
     apply: 'build',
     // closeBundle 在 vite 全部写盘后执行，此时可安全整理并清理中间产物
     closeBundle() {
+      // Vercel 环境保留标准 Vite 产物，跳过妙搭协议整理
+      if (isVercel) return;
       const dist = path.resolve(import.meta.dirname, 'dist');
       const client = path.join(dist, 'client');
       const output = path.join(dist, 'output');
@@ -113,6 +117,7 @@ export default defineConfig(({ command }) => ({
     },
   },
   build: {
-    outDir: 'dist/client',
+    // Vercel 走标准 dist/ 输出；妙搭托管走 dist/client（由插件整理为 output/output_resource）
+    outDir: isVercel ? 'dist' : 'dist/client',
   },
 }));
